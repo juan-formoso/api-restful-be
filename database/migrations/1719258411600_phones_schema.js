@@ -5,8 +5,11 @@ const Schema = use('Schema')
 
 class PhonesSchema extends Schema {
   up () {
-    this.table('phones', (table) => {
-      // alter table
+    this.create('phones', (table) => {
+      table.increments()
+      table.integer('client_id').unsigned().references('id').inTable('clients')
+      table.string('number', 15).notNullable()
+      table.timestamps()
     })
   }
 
