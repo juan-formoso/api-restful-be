@@ -1,28 +1,44 @@
-# Adonis API application
+# API RESTful para Teste Técnico da Be
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+## Instalação
+1. Clone o repositório:
+    ```bash
+    git clone git@github.com:juan-formoso/api-restful-be.git
+    cd api-restful-be
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+2. Instale as dependências:
+    ```bash
+    npm install
 
-## Setup
+3. Configure o banco de dados no arquivo `.env`.
 
-Use the adonis command to install the blueprint
+4. Execute as migrations:
+    ```bash
+    adonis migration:run
 
-```bash
-adonis new yardstick --api-only
-```
+5. Inicie o servidor:
+    ```bash
+    adonis serve --dev
 
-or manually clone the repo and then run `npm install`.
+## Rotas
 
+### Autenticação
+* `POST /signup`: Cadastro de usuário
+* `POST /login`: Login do usuário
 
-### Migrations
+### Clientes
+* `GET /clients`: Lista todos os clientes
+* `GET /clients/:id`: Detalha um cliente específico e suas vendas
+* `POST /clients/`: Adiciona um cliente
+* `PUT /clients/:id`: Edita um cliente
+* `DELETE /products/:id`: Exclui um cliente e suas vendas
 
-Run the following command to run startup migrations.
+### Produtos
+* `GET /products`: Lista todos os produtos
+* `GET /products/:id`: Detalha um produto específico
+* `POST /products`: Adiciona um produto
+* `PUT /products/:id`: Edita um produto
+* `DELETE /products/:id`: Exclui logicamente um produto
 
-```js
-adonis migration:run
-```
+### Vendas
+* `POST /sales`: Registra uma venda
