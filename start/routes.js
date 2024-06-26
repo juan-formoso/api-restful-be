@@ -16,7 +16,7 @@ Route.group(() => {
   Route.delete('/clients/:id', 'ClientController.delete')
 
   // Rotas de Produtos
-  Route.get('/products', 'Product.Controller.index')
+  Route.get('/products', 'ProductController.index')
   Route.get('/products/:id', 'ProductController.show')
   Route.post('/products', 'ProductController.store')
   Route.put('/products/:id', 'ProductController.update')
