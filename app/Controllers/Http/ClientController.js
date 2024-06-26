@@ -29,15 +29,20 @@ class ClientController {
     }
 
     async update({ params, request, response }) {
-        try {
-            const client = await Cliend.findOrFail(params.id)
-            const clientData = request.only(['name', 'cpf'])
-            client.merge(clientData)
-            await client.save()
-            return response.json(client)
-        } catch (error) {
-            return response.status(404).json({ message: 'Client not found', error })
+        const client = await Client.find(params.id)
+        if (!client) {
+            return response.status(404).json({
+                status: 'error',
+                message: 'Client not found'
+            })
         }
+        const data = request.only(['nome', 'cpf'])
+        client.merge(data)
+        await client.save()
+        return response.json({
+            status: 'success',
+            data: client
+        })
     }
 
     async delete({ params, response }) {
