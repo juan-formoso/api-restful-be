@@ -9,7 +9,7 @@ class User extends Model {
         super.boot()
 
         /**
-         * Hook que realiza um has na senha do usuário
+         * Hook que realiza um hash na senha do usuário
          * antes de salvá-la no banco de dados
          */
         this.addHook('beforeSave', async (userInstance) => {
@@ -19,7 +19,12 @@ class User extends Model {
         })
     }
 
-    // Autenticação
+    // Oculta a senha quando o objeto do usuário for serializado para JSON
+    static get hidden () {
+        return ['password']
+    }
+
+    // Relacionamento 1:N entre usuários e tokens
     tokens () {
         return this.hasMany('App/Models/Token')
     }
