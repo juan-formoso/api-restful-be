@@ -9,7 +9,7 @@ class SaleController {
         const { client_id, product_id, quantity } = request.only(['client_id', 'product_id', 'quantity'])
 
         try {
-            const client = await Client.findOrFail(client_id)
+            await Client.findOrFail(client_id)
             const product = await Product.findOrFail(product_id)
             const total_price = product.price * quantity
             
