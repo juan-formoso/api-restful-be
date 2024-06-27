@@ -1,20 +1,31 @@
 'use strict'
 
 const Client = use('App/Models/Client')
+const Sale = use('App/Models/Sale')
 
 class ClientController {
     async index({ response }) {
-        const clients = await Client.all()
+        const clients = await Client.query().orderBy('id').fetch()
         return response.json(clients)
     }
 
-    async show({ params, response }) {
+    async show ({ params, request, response }) {
+        const { id } = params
+        const { month, year } = request.get()
         try {
-            const client = await Client.findOrFail(params.id)
-            await client.load('sales')
-            return response.json(client)
+            const client = await Client.findOrFail(id)
+            let query = Sale.query().where('client_id', id).orderBy('sale_date', 'desc')
+            if (month && year) {
+                query = query.whereRaw('MONTH(sale_date) = ? AND YEAR(sale_date) = ?', [month, year])
+            } else if (month) {
+                query = query.whereRaw('MONTH(sale_date) = ?', [month])
+            } else if (year) {
+                query = query.whereRaw('YEAR(sale_date) = ?', [year])
+            }
+            const sales = await query.fetch()
+            return response.json({ client, sales })
         } catch (error) {
-            return response.status(404).json({ message: 'Client not found', error })
+            return response.status(404).json({ message: 'Client not found' })
         }
     }
 
