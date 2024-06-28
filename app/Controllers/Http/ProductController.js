@@ -4,8 +4,18 @@ const Product = use('App/Models/Product')
 
 class ProductController {
     async index({ response }) {
-        const products = await Product.query().where('deleted', false).fetch()
-        return response.json(products)
+        try {
+            const products = await Product.query()
+            .where('deleted', false)
+            .orderBy('name', 'asc')
+            .fetch()
+            return response.json(products)
+        } catch (error) {
+            return response.status(400).json({
+                status: 'error',
+                message: 'Could not fetch products'
+            })
+        }
     }
 
     async show({ params, response }) {
