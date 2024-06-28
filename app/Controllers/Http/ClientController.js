@@ -5,8 +5,15 @@ const Sale = use('App/Models/Sale')
 
 class ClientController {
     async index({ response }) {
-        const clients = await Client.query().orderBy('id').fetch()
-        return response.json(clients)
+        try {
+            const clients = await Client.query().orderBy('id', 'asc').fetch()
+            return response.json(clients)
+        } catch (error) {
+            return response.status(400).json({
+                status: 'error',
+                message: 'Could not fetch clients'
+            })
+        }
     }
 
     async show ({ params, request, response }) {
