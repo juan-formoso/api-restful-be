@@ -64,12 +64,14 @@ class ClientController {
     }
 
     async delete({ params, response }) {
+        const { id } = params
         try {
-            const client = await Client.findOrFail(params.id)
+            const client = await Client.findOrFail(id)
+            await Sale.query().where('client_id', id).delete()
             await client.delete()
-            return response.status(200).json({ message: 'Client deleted' })
+            return response.status(200).json({ message: 'Client and associated sales deleted successfully' })
         } catch (error) {
-            return response.status(404).json({ message: 'Client not found', error })
+            return response.status(404).json({ message: 'Client not found', error: error.message })
         }
     }
 }
