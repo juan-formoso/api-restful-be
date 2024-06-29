@@ -53,11 +53,11 @@ Estrutura mínima:
 :warning: **Observação**: as rotas em clientes, produtos e vendas só devem ser acessadas por usuários logados.
 
 ### Requisitos básicos
--[x] estruturar o sistema observando o MVC (porém, sem as views).
+- [x] estruturar o sistema observando o MVC (porém, sem as views).
 
--[x] usar MySQL como banco de dados.
+- [x] usar MySQL como banco de dados.
 
--[x] respostas em JSON.
+- [x] respostas em JSON.
 
 ## Tecnologias utilizadas :hammer:
 > Node.js, Adonis, JWT, MySQL, ThunderClient
