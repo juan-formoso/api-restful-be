@@ -119,7 +119,7 @@ Content-Type: application/json
 
 ### Endpoints e exemplos de requisições
 1. Cadastro de Usuário
-**Rota**: `POST /signup`
+* **Rota**: `POST /signup`
 ```json
 {
     "email":"usuario@exemplo.com",
@@ -127,21 +127,80 @@ Content-Type: application/json
 }
 ```
 2. Login de Usuário
-**Rota**: `POST /login`
+* **Rota**: `POST /login`
 ```json
 {
     "email":"usuario@exemplo.com",
     "password":"senha123"
 }
 ```
-3. Listar Clientes
-**Rota**: `GET /clients`
-
-4. Detalhar um Cliente
-**Rota**: `GET /clients/:id`
-
-
-
+3. Adicionar um Cliente
+* **Rota**: `POST /clients`
+```json
+{
+  "name": "Fulano de tal",
+  "cpf": "123.456.789-00",
+  "address": {
+    "street": "Rua Exemplo",
+    "city": "Cidade Exemplo",
+    "state": "Estado Exemplo",
+    "country": "País Exemplo",
+    "zip_code": "12345-678"
+  },
+  "phones": [
+    {
+      "number": "123456789"
+    }
+  ]
+}
+```
+4. Editar um Cliente
+* **Rota**: `PUT /clients/:id`
+```json
+{
+  "name": "Nome do Cliente Atualizado",
+  "cpf": "987.654.321-00",
+  "address": {
+    "street": "Rua Atualizada",
+    "city": "Cidade Atualizada",
+    "state": "Estado Atualizado",
+    "country": "País Atualizado",
+    "zip_code": "87654-321"
+  },
+  "phones": [
+    {
+      "number": "987654321"
+    }
+  ]
+}
+```
+5. Adicionar um Produto
+* **Rota**: `POST /products`
+```json
+{
+  "name": "Nome do Produto",
+  "price": 100.00
+}
+```
+6. Editar um Produto
+* **Rota**: `PUT /products/:id`
+```json
+{
+    "name":"Nome atualizado",
+    "price":150.00
+}
+```
+7. Registrar uma venda
+* **Rota**: `POST /sales`
+```json
+{
+    "client_id": 1,
+    "product_id": 1,
+    "quantity": 2,
+    "unit_price":12.00,
+    "total_price":24.00
+}
+```
 
 ## Informações úteis :heavy_plus_sign:
 Referências utilizadas por mim durante o projeto:
