@@ -145,7 +145,7 @@ Content-Type: application/json
     "city": "Cidade Exemplo",
     "state": "Estado Exemplo",
     "country": "País Exemplo",
-    "zip_code": "12345-678"
+    "zip-code": "12345-678"
   },
   "phones": [
     {
@@ -165,7 +165,7 @@ Content-Type: application/json
     "city": "Cidade Atualizada",
     "state": "Estado Atualizado",
     "country": "País Atualizado",
-    "zip_code": "87654-321"
+    "zip-code": "87654-321"
   },
   "phones": [
     {
