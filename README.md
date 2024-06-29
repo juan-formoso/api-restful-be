@@ -54,7 +54,9 @@ Estrutura mínima:
 
 ### Requisitos básicos
 -[x] estruturar o sistema observando o MVC (porém, sem as views).
+
 -[x] usar MySQL como banco de dados.
+
 -[x] respostas em JSON.
 
 ## Tecnologias utilizadas :hammer:
@@ -108,3 +110,14 @@ Estrutura mínima:
 ## Realizando requisições :computer:
 
 ## Informações úteis :heavy_plus_sign:
+Referências utilizadas por mim durante o projeto:
+
+- [Documentação Adonis](https://docs.adonisjs.com/guides/getting-started/installation)
+- [Documentação git](https://git-scm.com/book/en/v2)
+- [Documentação MySQL](https://dev.mysql.com/doc/workbench/en/)
+
+* Controllers estão em `/app/Controllers/Http`.
+* Models estão em `/app/Models`.
+* Arquivo de configuração do JWT está em `config/auth.js`.
+* Scripts de migração do DB estão em `/database/migrations`.
+* Rotas da API estão em `/start/routes.js`.
