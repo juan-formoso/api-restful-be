@@ -108,6 +108,40 @@ Estrutura mínima:
     adonis serve --dev
 
 ## Realizando requisições :computer:
+Esta seção detalha como interagir com as rotas da API e enviar dados pelo Cabeçalho e Corpo da requisição.
+
+### Headers Comuns
+Todas as requisições que necessitam de autenticação devem incluir o token JWT no cabeçalho da seguinte forma:
+```
+Authorization: Bearer <token-jwt>
+Content-Type: application/json
+```
+
+### Endpoints e exemplos de requisições
+1. Cadastro de Usuário
+**Rota**: `POST /signup`
+```json
+{
+    "email":"usuario@exemplo.com",
+    "password":"senha123"
+}
+```
+2. Login de Usuário
+**Rota**: `POST /login`
+```json
+{
+    "email":"usuario@exemplo.com",
+    "password":"senha123"
+}
+```
+3. Listar Clientes
+**Rota**: `GET /clients`
+
+4. Detalhar um Cliente
+**Rota**: `GET /clients/:id`
+
+
+
 
 ## Informações úteis :heavy_plus_sign:
 Referências utilizadas por mim durante o projeto:
