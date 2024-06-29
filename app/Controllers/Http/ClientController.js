@@ -2,6 +2,8 @@
 
 const Client = use('App/Models/Client')
 const Sale = use('App/Models/Sale')
+const Address = use('App/Models/Address')
+const Phone = use('App/Models/Phone')
 
 class ClientController {
     async index({ response }) {
@@ -37,9 +39,20 @@ class ClientController {
     }
 
     async store({ request, response }) {
-        const clientData = request.only(['name', 'cpf'])
+        const { name, cpf, addresses, phones } = request.only(['name', 'cpf', 'addresses', 'phones'])
         try {
-            const client = await Client.create(clientData)
+            const client = await Client.create({ name, cpf })
+            if (addresses ** addresses.length > 0) {
+                for (const address of addresses) {
+                    await Address.create({ ...address, client_id: client.id })
+                }
+            }
+            if (phones && phones.length > 0) {
+                for (const phone of phones) {
+                    await Phone.create({ ...phone, client_id: client.id })
+                }
+            }
+            await client.loadMany(['addresses', 'phones'])
             return response.status(201).json(client)
         } catch (error) {
             return response.status(400).json({ message: 'Error creating client', error })
