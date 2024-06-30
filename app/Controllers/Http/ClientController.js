@@ -50,29 +50,34 @@ class ClientController {
     }    
 
     async store({ request, response }) {
-        const { name, cpf, addresses, phones } = request.only(['name', 'cpf', 'addresses', 'phones'])
         try {
-            const client = await Client.create({ name, cpf })
-            if (addresses ** addresses.length > 0) {
-                for (const address of addresses) {
-                    await Address.create({ ...address, client_id: client.id })
+            const data = request.only(['name', 'cpf', 'address', 'phones'])
+            const client = await Client.create({ name: data.name, cpf: data.cpf })
+            if (data.address) {
+                const address = await Address.create({ ...data.address, client_id: client.id })
+            }
+            if (data.phones && data.phones.length > 0) {
+                for (let phone of data.phones) {
+                    const createdPhone = await Phone.create({ ...phone, client_id: client.id })
                 }
             }
-            if (phones && phones.length > 0) {
-                for (const phone of phones) {
-                    await Phone.create({ ...phone, client_id: client.id })
-                }
-            }
-            await client.loadMany(['addresses', 'phones'])
-            return response.status(201).json(client)
+            return response.status(201).json({
+                status: 'success',
+                data: client
+            })
         } catch (error) {
-            return response.status(400).json({ message: 'Error creating client', error })
+            console.error('Error creating client:', error)
+            return response.status(400).json({
+                status: 'error',
+                message: 'Error creating client',
+                error: error.message
+            })
         }
     }
 
     async update({ params, request, response }) {
         const { id } = params
-        const { name, cpf, addresses, phones } = request.only(['name', 'cpf', 'addresses', 'phones'])
+        const data = request.only(['name', 'cpf', 'address', 'phones'])
         try {
             const client = await Client.find(id)
             if (!client) {
@@ -81,30 +86,36 @@ class ClientController {
                     message: 'Client not found'
                 })
             }
-            client.merge({ name, cpf })
+            client.merge({ name: data.name, cpf: data.cpf })
             await client.save()
-            if (addresses && addresses.length > 0) {
-                await Address.query().where('client_id', id).delete()
-                for (const address of addresses) {
-                    await Address.create({ ...address, client_id: client.id })
+            if (data.address) {
+                let address = await Address.query().where('client_id', id).first()
+                if (address) {
+                    address.merge(data.address)
+                    await address.save()
+                } else {
+                    await Address.create({ ...data.address, client_id: client.id })
                 }
             }
-            if (phones && phones.length > 0) {
+            if (data.phones && data.phones.length > 0) {
                 await Phone.query().where('client_id', id).delete()
-                for (const phone of phones) {
+                for (let phone of data.phones) {
                     await Phone.create({ ...phone, client_id: client.id })
                 }
             }
-            await client.loadMany(['addresses', 'phones'])    
             return response.json({
                 status: 'success',
                 data: client
             })
         } catch (error) {
-            return response.status(400).json({ message: 'Error updating client', error })
+            console.error('Error updating client:', error)
+            return response.status(400).json({
+                status: 'error',
+                message: 'Error updating client',
+                error: error.message
+            })
         }
     }
-    
 
     async delete({ params, response }) {
         const { id } = params
