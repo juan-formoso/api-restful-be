@@ -97,7 +97,7 @@ Estrutura mínima:
 
 3. Configure o banco de dados no arquivo `.env`.
 
-    :wink: Dica: utilize o arquivo `.env.example` como referência!
+    :wink: Dica: utilize o arquivo `.env.example` como referência! E utilize o comando `adonis key:generate` para gerar um valor para a variável de ambiente **APP_KEY**.
 
 4. Crie o banco de dados:
     ```sql
