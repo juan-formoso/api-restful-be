@@ -99,11 +99,15 @@ Estrutura mínima:
 
     :wink: Dica: utilize o arquivo `.env.example` como referência!
 
-4. Execute as migrations:
+4. Crie o banco de dados:
+    ```sql
+    CREATE DATABASE adonis;
+
+5. Execute as migrations:
     ```bash
     adonis migration:run
 
-5. Inicie o servidor:
+6. Inicie o servidor:
     ```bash
     adonis serve --dev
 
